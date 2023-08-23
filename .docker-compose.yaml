@@ -1,0 +1,9 @@
+services:
+  auth-frontend-next:
+    image: OpenTreeHole/auth-frontend-next:dev
+    container_name: auth-frontend-next
+    environment:
+      - VITE_AUTH_URL=${AUTH_URL}
+      - VITE_COOKIE_DOMAIN=${COOKIE_DOMAIN}
+    ports:
+      - 3001:80

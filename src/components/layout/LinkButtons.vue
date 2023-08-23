@@ -1,0 +1,29 @@
+<template>
+  <v-row
+    class="space-x-2"
+    justify="end"
+    no-gutters
+  >
+    <v-btn
+      variant="text"
+      size="small"
+      href="https://www.fduhole.com/license"
+    >
+      <span>社区公约</span>
+    </v-btn>
+    <v-btn
+      variant="text"
+      size="small"
+      href="https://github.com/OpenTreeHole/auth_frontend/blob/master/LICENSE"
+    >
+      <span>开源协议</span>
+    </v-btn>
+    <v-btn
+      variant="text"
+      size="small"
+      href="https://github.com/OpenTreeHole/"
+    >
+      <span>GITHUB</span>
+    </v-btn>
+  </v-row>
+</template>

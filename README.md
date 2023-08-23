@@ -10,7 +10,7 @@ This installation is just for frontend program. If you want to deploy the whole 
 This project continuously integrates with docker. Go check it out if you don't have docker locally installed.
 1. Download the [docker-compose.yaml](https://github.com/OpenTreeHole/auth-frontend-next/blob/master/docker-compose.yaml).
     ```bash
-    wget https://raw.githubusercontent.com/OpenTreeHole/auth_frontend/master/docker-compose.yaml
+    wget https://raw.githubusercontent.com/OpenTreeHole/auth-frontend-next/master/docker-compose.yaml
     ```
 
 2. Create a ```.env``` file under the same directory with ```docker-compose.yaml```.
@@ -45,7 +45,7 @@ This project continuously integrates with docker. Go check it out if you don't h
 
 ## Contribute
 
-Feel free to dive in! [Open an issue](https://github.com/OpenTreeHole/auth_frontend/issues/new) or submit PRs.
+Feel free to dive in! [Open an issue](https://github.com/OpenTreeHole/auth-frontend-next/issues/new) or submit PRs.
 
 ### Development
 

@@ -6,7 +6,7 @@
 
 <script setup lang="ts">
 import Layout from '@/components/layout/Layout.vue'
-import { onBeforeRouteUpdate } from 'vue-router'
+import { onBeforeRouteUpdate } from 'vue-router/auto'
 
 onBeforeRouteUpdate((to, from, next) => {
   if (!to.query.type) {

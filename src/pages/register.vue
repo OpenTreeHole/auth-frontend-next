@@ -1,11 +1,8 @@
 <template>
-  <Layout>
-    <RouterView />
-  </Layout>
+  <RouterView />
 </template>
 
 <script setup lang="ts">
-import Layout from '@/components/layout/Layout.vue'
 import { onBeforeRouteUpdate } from 'vue-router/auto'
 
 onBeforeRouteUpdate((to, from, next) => {

@@ -1,3 +1,4 @@
+import { useSide } from '@/composables/side'
 import { createRouter, createWebHistory } from 'vue-router/auto'
 
 export const router = createRouter({
@@ -10,4 +11,13 @@ router.beforeEach((to, from, next) => {
     next(to)
   }
   next()
+})
+
+router.afterEach((to, from) => {
+  console.log('to', to)
+  console.log('from', from)
+  const { side } = useSide()
+  if (to.name !== from.name) {
+    side.value = (to.meta.side as any) || false
+  }
 })

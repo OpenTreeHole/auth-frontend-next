@@ -20,7 +20,7 @@
           variant="text"
           :rounded="4"
           :active="n + 1 === index"
-          :color="color(question)"
+          :color="$t(`color.question.${question.status}`)"
           @click="router.push(`/question/${n + 1}`)"
         >
           {{ n + 1 }}
@@ -45,7 +45,7 @@ import { useRouter } from 'vue-router/auto'
 import { useRouteParams } from '@vueuse/router'
 import { computed } from 'vue'
 import { useQuestionStore } from '@/stores/question'
-import { Question, TestAnswerSchema } from '@/types/question'
+import { TestAnswerSchema } from '@/types/question'
 import { useNotification } from '@/composables/notification'
 import { submitTestAnswer } from '@/apis/question'
 import { useLoading } from '@/composables/loading'
@@ -57,13 +57,6 @@ const questionStore = useQuestionStore()
 const indexParam = useRouteParams('index')
 
 const index = computed(() => Number(indexParam.value))
-
-const color = (question: Question) => {
-  if (question.status === 'answered') return 'blue'
-  if (question.status === 'not-answered') return 'black'
-  if (question.status === 'correct') return 'green'
-  if (question.status === 'wrong') return 'red'
-}
 
 const onSubmit = async () => {
   const { message, correct, wrongQuestionIds } = await load(

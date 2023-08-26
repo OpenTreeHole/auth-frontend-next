@@ -1,5 +1,5 @@
 <template>
-  <v-card-title> 您已登录 </v-card-title>
+  <v-card-title v-t="'message.title.online'"></v-card-title>
   <v-card-subtitle class="mt-0">
     <span style="font-family: 'Open Sans', serif; font-size: 14px">
       {{ email }}
@@ -9,12 +9,11 @@
   <v-card-text class="text-start mt-n4"> <b>Refresh:</b> {{ refresh }} </v-card-text>
   <v-card-text>
     <v-btn
+      v-t="'message.button.logout'"
       variant="flat"
       color="secondary"
       @click="onLogout"
-    >
-      登出
-    </v-btn>
+    ></v-btn>
   </v-card-text>
 </template>
 
@@ -27,8 +26,10 @@ import { promiseTimeout, useLocalStorage } from '@vueuse/core'
 import { useRouteQuery } from '@vueuse/router'
 import { onBeforeMount } from 'vue'
 import { onMounted } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router/auto'
 
+const { t } = useI18n()
 const not = useNotification()
 const router = useRouter()
 const { load } = useLoading()
@@ -44,7 +45,7 @@ const onLogout = async () => {
 
 onBeforeMount(() => {
   if (!access.value || !refresh.value) {
-    not.error('您尚未登录！')
+    not.error(t('message.error.not_logged_in'))
     router.push('/login')
   }
 })

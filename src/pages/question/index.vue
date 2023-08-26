@@ -1,16 +1,13 @@
 <template>
-  <v-card-title> 入站答题 </v-card-title>
-  <v-card-text>
-    为了更好地维护社区的和谐氛围，我们需要您在正式加入社区之前完成一份入站答题，答题时请参考意见问题和协议条款。
-  </v-card-text>
+  <v-card-title v-t="'message.title.question'"></v-card-title>
+  <v-card-text v-t="'message.text.question'"></v-card-text>
   <v-card-text>
     <v-btn
+      v-t="'message.button.begin_test'"
       color="secondary"
       variant="flat"
       @click="start"
-    >
-      开始答题
-    </v-btn>
+    ></v-btn>
   </v-card-text>
 </template>
 

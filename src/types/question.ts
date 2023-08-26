@@ -3,10 +3,7 @@ import { z } from 'zod'
 export const QuestionSchema = z.object({
   analysis: z.string().optional(),
   answer: z.array(z.string()).optional().default([]),
-  status: z
-    .enum(['not-answered', 'answered', 'correct', 'wrong'])
-    .optional()
-    .default('not-answered'),
+  status: z.enum(['blank', 'answered', 'correct', 'wrong']).optional().default('blank'),
   group: z.enum(['optional', 'required']),
   id: z.number().int(),
   options: z.array(z.string()).min(1),
@@ -38,7 +35,7 @@ export const TestAnswerSchema = z.object({
     .array(QuestionAnswerSchema)
     .refine(
       (answers) => answers.every((answer) => answer.answer.length > 0),
-      '你有尚未作答的问题！'
+      'Question answers must not be empty.'
     ),
   version: z.number().int()
 })

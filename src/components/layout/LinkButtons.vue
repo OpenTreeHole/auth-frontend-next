@@ -5,25 +5,22 @@
     no-gutters
   >
     <v-btn
+      v-t="'message.button.link.community_convention'"
       variant="text"
       size="small"
       href="https://www.fduhole.com/license"
-    >
-      <span>社区公约</span>
-    </v-btn>
+    ></v-btn>
     <v-btn
+      v-t="'message.button.link.open_source_license'"
       variant="text"
       size="small"
       href="https://github.com/OpenTreeHole/auth_frontend/blob/master/LICENSE"
-    >
-      <span>开源协议</span>
-    </v-btn>
+    ></v-btn>
     <v-btn
+      v-t="'message.button.link.github'"
       variant="text"
       size="small"
       href="https://github.com/OpenTreeHole/"
-    >
-      <span>GITHUB</span>
-    </v-btn>
+    ></v-btn>
   </v-row>
 </template>

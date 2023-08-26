@@ -1,17 +1,16 @@
 <template>
-  <v-card-title> 确认邮箱 </v-card-title>
+  <v-card-title v-t="'message.title.confirm_email'"></v-card-title>
   <EmailDisplayBtn @click="router.push('/register/email')">
     {{ email }}
   </EmailDisplayBtn>
-  <v-card-text> 我们将向你的邮箱发送验证码，请注意查收。</v-card-text>
+  <v-card-text v-t="'message.subtitle.confirm_email'"></v-card-text>
   <v-card-text class="d-flex justify-space-between">
     <v-btn
+      v-t="'message.button.prev_step'"
       variant="text"
       color="secondary"
       @click="router.push('/register/email')"
-    >
-      <span>返回上一步</span>
-    </v-btn>
+    ></v-btn>
     <v-btn
       variant="flat"
       color="secondary"
@@ -36,7 +35,7 @@ import { useRouter } from 'vue-router/auto'
 const not = useNotification()
 const router = useRouter()
 const { load } = useLoading()
-const registerType = useRouteQuery('type')
+const registerType = useRouteQuery<string>('type', 'register')
 const email = useStorage('email', '')
 const now = useNow()
 const sendCodeTimeoutDate = useStorage('sendCodeTimeoutDate', new Date())

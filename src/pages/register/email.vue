@@ -4,22 +4,17 @@
     lazy-validation
     @submit.prevent="onSubmit"
   >
-    <v-card-title>
-      {{ isForgetPassword ? '忘记密码' : '注册' }}
-    </v-card-title>
-    <v-card-subtitle class="text-subtitle-1">
-      {{
-        isForgetPassword
-          ? '使用复旦学邮(@fudan.edu.cn)以找回密码'
-          : '使用您的复旦学邮(@fudan.edu.cn)进行注册！'
-      }}
-    </v-card-subtitle>
+    <v-card-title v-t="`message.title.register.${registerType}`"></v-card-title>
+    <v-card-subtitle
+      v-t="`message.subtitle.register.${registerType}`"
+      class="text-subtitle-1"
+    ></v-card-subtitle>
     <v-card-text class="mt-8">
       <v-text-field
         v-model="email"
         variant="outlined"
         clearable
-        label="复旦大学电子邮箱"
+        :label="$t('message.label.email')"
         type="email"
         :rules="emailRules"
       >
@@ -47,22 +42,22 @@
 <script setup lang="ts">
 import { useStorage } from '@vueuse/core'
 import { useRouteQuery } from '@vueuse/router'
-import { computed, ref } from 'vue'
+import { ref } from 'vue'
+import { useI18n } from 'vue-i18n'
 import { useRouter } from 'vue-router/auto'
-import { VForm } from 'vuetify/lib/components/index.mjs'
+import { VForm } from 'vuetify/components'
 
+const { t } = useI18n()
 const router = useRouter()
-const registerType = useRouteQuery('type')
+const registerType = useRouteQuery<string>('type', 'register')
 const emailStorage = useStorage('email', '')
 
 const form = ref<VForm | null>(null)
 const email = ref(emailStorage.value)
 
-const isForgetPassword = computed(() => registerType.value === 'forget_password')
-
 const checkEmail = (email: string) =>
   /^[a-zA-Z\d]+@(m\.)?fudan\.edu\.cn$/.test(email) || email === 'admin@opentreehole.org'
-const emailRules = [(v: string) => checkEmail(v) || '不是正确的复旦学邮格式！']
+const emailRules = [(v: string) => checkEmail(v) || t('message.error.email_format')]
 
 const onSubmit = async () => {
   if (!form.value) return

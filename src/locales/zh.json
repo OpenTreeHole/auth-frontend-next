@@ -1,0 +1,82 @@
+{
+    "message": {
+        "title": {
+            "login": "登录",
+            "login_password": "输入您的密码",
+            "register": {
+                "register": "注册",
+                "forget_password": "忘记密码"
+            },
+            "verify_email": "验证邮箱",
+            "confirm_email": "确认邮箱",
+            "question": "入站答题",
+            "online": "您已登录"
+        },
+        "subtitle": {
+            "login": "使用您的 FDU Hole 账号",
+            "register": {
+                "register": "使用您的复旦学邮(@fudan.edu.cn)进行注册！",
+                "forget_password": "使用复旦学邮(@fudan.edu.cn)以找回密码"
+            },
+            "confirm_email": "我们将向你的邮箱发送验证码，请注意查收。"
+        },
+        "button": {
+            "link": {
+                "community_convention": "社区公约",
+                "open_source_license": "开源协议",
+                "github": "GITHUB"
+            },
+            "prev_step": "返回上一步",
+            "next_step": "下一步",
+            "go_to_register": "注册 FDU Hole 账号",
+            "forget_password": "忘记密码？",
+            "login": "登录",
+            "logout": "登出",
+            "go_to_login": "已有账号？点此登录",
+            "register": {
+                "register": "注册",
+                "forget_password": "确认"
+            },
+            "begin_test": "开始答题",
+            "prev_question": "上一题",
+            "next_question": "下一题",
+            "question_list": "目录",
+            "submit_test": "交卷"
+        },
+        "label": {
+            "email": "复旦大学电子邮箱",
+            "password": "输入您的密码",
+            "show_password": "显示密码",
+            "set_password": "设置密码",
+            "confirm_password": "确认密码",
+            "verification_code": "验证码",
+            "question": {
+                "true": "正确",
+                "false": "错误"
+            }
+        },
+        "text": {
+            "verification_code": {
+                "sent": "我们已向 {email} 发送验证码。",
+                "not_received": "未收到？"
+            },
+            "question": "为了更好地维护社区的和谐氛围，我们需要您在正式加入社区之前完成一份入站答题，答题时请参考意见问题和协议条款。"
+        },
+        "error": {
+            "email_format": "不是正确的复旦学邮格式！",
+            "verification_code_length": "请输入6位验证码！",
+            "password_length": "请输入8~12位密码！",
+            "password_not_match": "两次输入的密码不一致！",
+            "question_not_answered": "你有尚未作答的问题！",
+            "not_logged_in": "您尚未登录！"
+        }
+    },
+    "color": {
+        "question": {
+            "blank": "black",
+            "answered": "blue",
+            "correct": "green",
+            "wrong": "red"
+        }
+    }
+}

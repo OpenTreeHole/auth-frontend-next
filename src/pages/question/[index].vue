@@ -1,5 +1,5 @@
 <template>
-  <v-card-title> 入站答题 </v-card-title>
+  <v-card-title v-t="'message.title.question'"></v-card-title>
   <v-card-text
     v-if="currentQuestion"
     class="text-left"
@@ -10,13 +10,15 @@
       :model-value="currentQuestion.answer.length > 0 && currentQuestion.answer[0]"
       column
       class="ml-n1 my-1"
-      color="red"
+      :color="$t(`color.question.${currentQuestion.status}`)"
       @update:model-value="updateRadioGroup"
     >
       <v-radio
         v-for="item in currentQuestion.options"
         :key="item"
-        :label="item"
+        :label="
+          currentQuestion.type === 'true-or-false' ? $t(`message.label.question.${item}`) : item
+        "
         :value="item"
       >
       </v-radio>
@@ -28,6 +30,13 @@
         :model-value="currentQuestion.answer"
         :label="item"
         :value="item"
+        :color="
+          $t(
+            currentQuestion.answer.includes(item)
+              ? `color.question.${currentQuestion.status}`
+              : 'color.question.blank'
+          )
+        "
         @update:model-value="updateCheckboxGroup"
       >
       </v-checkbox>
@@ -37,41 +46,37 @@
     <div class="d-flex justify-start">
       <v-btn
         v-if="index > 1"
+        v-t="'message.button.prev_question'"
         variant="text"
         color="secondary"
         @click="router.push(`/question/${index - 1}`)"
-      >
-        上一题
-      </v-btn>
+      ></v-btn>
     </div>
 
     <div class="d-flex justify-center">
       <v-btn
         v-if="mobile"
+        v-t="'message.button.question_list'"
         variant="text"
         color="secondary"
         @click="side = !side"
-      >
-        目录
-      </v-btn>
+      ></v-btn>
     </div>
     <div class="d-flex justify-end">
       <v-btn
         v-if="index < total"
+        v-t="'message.button.next_question'"
         variant="flat"
         color="secondary"
         @click="router.push(`/question/${index + 1}`)"
-      >
-        下一题
-      </v-btn>
+      ></v-btn>
       <v-btn
         v-else
+        v-t="'message.button.submit_test'"
         variant="flat"
         color="secondary"
         @click="onSubmit"
-      >
-        交卷
-      </v-btn>
+      ></v-btn>
     </div>
   </v-card-text>
 </template>
@@ -87,10 +92,12 @@ import { useLoading } from '@/composables/loading'
 import { submitTestAnswer } from '@/apis/question'
 import { TestAnswerSchema } from '@/types/question'
 import { useNotification } from '@/composables/notification'
+import { useI18n } from 'vue-i18n'
 
 const { mobile } = useDisplay()
 const { side } = useSide()
 const { load } = useLoading()
+const { t } = useI18n()
 const not = useNotification()
 const router = useRouter()
 const questionStore = useQuestionStore()
@@ -109,11 +116,15 @@ const updateRadioGroup = (value: string) => {
 
 const updateCheckboxGroup: any = (values: string[]) => {
   currentQuestion.value!.answer = values
-  if (values.length === 0) currentQuestion.value!.status = 'not-answered'
+  if (values.length === 0) currentQuestion.value!.status = 'blank'
   else currentQuestion.value!.status = 'answered'
 }
 
 const onSubmit = async () => {
+  if (questionStore.questions.some((q) => q.status === 'blank')) {
+    not.error(t('message.error.question_not_answered'))
+    return
+  }
   const { message, correct, wrongQuestionIds } = await load(
     submitTestAnswer(
       TestAnswerSchema.parse({

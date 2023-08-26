@@ -4,31 +4,29 @@
     lazy-validation
     @submit.prevent="onSubmit"
   >
-    <v-card-title> 验证邮箱 </v-card-title>
+    <v-card-title v-t="`message.title.verify_email`"></v-card-title>
     <EmailDisplayBtn @click="router.push('/register/email')">
       {{ email }}
     </EmailDisplayBtn>
     <v-card-text>
-      <span>
-        我们已向 {{ email }} 发送验证码。<br />未收到？
-        <v-btn
-          class="px-0"
-          variant="text"
-          color="secondary"
-          style="height: 19px; margin-top: -3px"
-          @click="router.push('/register/sendVerificationCode')"
-        >
-          返回上一步
-        </v-btn>
-        。
-      </span>
+      {{ $t('message.text.verification_code.sent', { email }) }}<br />{{
+        $t('message.text.verification_code.not_received')
+      }}
+      <v-btn
+        v-t="'message.button.prev_step'"
+        class="px-0"
+        variant="text"
+        color="secondary"
+        style="height: 19px; margin-top: -3px"
+        @click="router.push('/register/sendVerificationCode')"
+      ></v-btn>
     </v-card-text>
     <v-card-text class="mt-8">
       <v-text-field
         v-model="verificationCode"
         variant="outlined"
         clearable
-        label="验证码"
+        :label="$t('message.label.verification_code')"
         type="text"
         :rules="codeRules"
       >
@@ -39,19 +37,17 @@
       class="d-flex justify-space-between"
     >
       <v-btn
+        v-t="`message.button.prev_step`"
         variant="text"
         color="secondary"
         @click="router.push('/register/sendVerificationCode')"
-      >
-        返回上一步
-      </v-btn>
+      ></v-btn>
       <v-btn
+        v-t="`message.button.next_step`"
         variant="flat"
         color="secondary"
         type="submit"
-      >
-        下一步
-      </v-btn>
+      ></v-btn>
     </v-card-text>
     <template v-else>
       <v-card-text class="mt-n9">
@@ -59,7 +55,7 @@
           v-model="password"
           variant="outlined"
           clearable
-          label="设置密码"
+          :label="$t('message.label.set_password')"
           type="password"
           :rules="passwordRules"
         >
@@ -70,7 +66,7 @@
           v-model="password2"
           variant="outlined"
           clearable
-          label="重复输入密码"
+          :label="$t('message.label.confirm_password')"
           type="password"
           :rules="password2Rules"
         >
@@ -78,19 +74,17 @@
       </v-card-text>
       <v-card-text class="d-flex justify-space-between">
         <v-btn
+          v-t="`message.button.prev_step`"
           variant="text"
           color="secondary"
           @click="showPasswordArea = false"
-        >
-          返回上一步
-        </v-btn>
+        ></v-btn>
         <v-btn
+          v-t="`message.button.register.${registerType}`"
           variant="flat"
           color="secondary"
           type="submit"
-        >
-          {{ isForgetPassword ? '确认' : '注册' }}
-        </v-btn>
+        ></v-btn>
       </v-card-text>
     </template>
   </v-form>
@@ -107,11 +101,13 @@ import { useRouter } from 'vue-router/auto'
 import { VForm } from 'vuetify/lib/components/index.mjs'
 import EmailDisplayBtn from '@/components/EmailDisplayBtn.vue'
 import { useLoading } from '@/composables/loading'
+import { useI18n } from 'vue-i18n'
 
+const { t } = useI18n()
 const not = useNotification()
 const router = useRouter()
 const { load } = useLoading()
-const registerType = useRouteQuery('type')
+const registerType = useRouteQuery<string>('type', 'register')
 const email = useStorage('email', '')
 
 const form = ref<VForm | null>(null)
@@ -122,10 +118,14 @@ const password = ref('')
 const password2 = ref('')
 
 const isForgetPassword = computed(() => registerType.value === 'forget_password')
-const codeRules = computed(() => [(v: string) => v.length === 6 || '请输入6位验证码！'])
-const passwordRules = [(v: string) => (v.length >= 8 && v.length <= 12) || '请输入8~12位密码！']
+const codeRules = computed(() => [
+  (v: string) => v.length === 6 || t('message.error.verification_code_length')
+])
+const passwordRules = [
+  (v: string) => (v.length >= 8 && v.length <= 12) || t('message.error.password_length')
+]
 const password2Rules = computed(() => [
-  (v: string) => v === password.value || '两次输入密码不相同！'
+  (v: string) => v === password.value || t('message.error.password_not_match')
 ])
 
 const onSubmit = async () => {

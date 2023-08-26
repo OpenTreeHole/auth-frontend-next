@@ -23,7 +23,10 @@
       >
       </v-radio>
     </v-radio-group>
-    <template v-else-if="currentQuestion.type === 'multi-selection'">
+    <div
+      v-else-if="currentQuestion.type === 'multi-selection'"
+      class="ml-n1 my-1"
+    >
       <v-checkbox
         v-for="item in currentQuestion.options"
         :key="item"
@@ -37,10 +40,11 @@
               : 'color.question.blank'
           )
         "
+        hide-details
         @update:model-value="updateCheckboxGroup"
       >
       </v-checkbox>
-    </template>
+    </div>
   </v-card-text>
   <v-card-text style="display: grid; grid-template-columns: repeat(3, minmax(0, 1fr))">
     <div class="d-flex justify-start">
@@ -165,3 +169,9 @@ onBeforeMount(() => {
   }
 }
 </route>
+
+<style>
+.v-checkbox .v-selection-control {
+  min-height: unset !important;
+}
+</style>

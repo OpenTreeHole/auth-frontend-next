@@ -14,8 +14,6 @@ router.beforeEach((to, from, next) => {
 })
 
 router.afterEach((to, from) => {
-  console.log('to', to)
-  console.log('from', from)
   const { side } = useSide()
   if (to.name !== from.name) {
     side.value = (to.meta.side as any) || false

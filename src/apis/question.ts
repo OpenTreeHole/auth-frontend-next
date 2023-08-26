@@ -12,19 +12,36 @@ export const getTest = async (version?: number): Promise<Test> => {
   return TestSchema.parse(response.data)
 }
 
-export const answerTest = async (testAnswer: TestAnswer) => {
+export const submitTestAnswer = async (testAnswer: TestAnswer) => {
   const response = await authRequest.post('/register/questions/_answer', testAnswer)
   const data = z
-    .object({
-      message: z.string(),
-      access: z.string(),
-      refresh: z.string(),
-      correct: z.boolean(),
-      wrongQuestionIds: z.array(z.number())
+    .discriminatedUnion('correct', [
+      z.object({
+        correct: z.literal(true),
+        access: z.string(),
+        refresh: z.string(),
+        message: z.string()
+      }),
+      z.object({
+        correct: z.literal(false),
+        message: z.string(),
+        wrongQuestionIds: z.array(z.number().int())
+      })
+    ])
+    .transform((data) => {
+      if (data.correct) {
+        return {
+          wrongQuestionIds: [],
+          ...data
+        }
+      }
+      return data
     })
     .parse(response.data)
-  const { access, refresh } = useJwtTokens()
-  access.value = data.access
-  refresh.value = data.refresh
+  if (data.correct) {
+    const { access, refresh } = useJwtTokens()
+    access.value = data.access
+    refresh.value = data.refresh
+  }
   return data
 }

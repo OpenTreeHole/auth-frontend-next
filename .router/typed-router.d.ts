@@ -46,7 +46,7 @@ declare module 'vue-router/auto/routes' {
     '/login/password': RouteRecordInfo<'/login/password', '/login/password', Record<never, never>, Record<never, never>>,
     '/online': RouteRecordInfo<'/online', '/online', Record<never, never>, Record<never, never>>,
     '/question/': RouteRecordInfo<'/question/', '/question', Record<never, never>, Record<never, never>>,
-    '/question/[id]': RouteRecordInfo<'/question/[id]', '/question/:id', { id: ParamValue<true> }, { id: ParamValue<false> }>,
+    '/question/[index]': RouteRecordInfo<'/question/[index]', '/question/:index', { index: ParamValue<true> }, { index: ParamValue<false> }>,
     '/register': RouteRecordInfo<'/register', '/register', Record<never, never>, Record<never, never>>,
     '/register/': RouteRecordInfo<'/register/', '/register', Record<never, never>, Record<never, never>>,
     '/register/email': RouteRecordInfo<'/register/email', '/register/email', Record<never, never>, Record<never, never>>,

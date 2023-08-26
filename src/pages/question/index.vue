@@ -7,7 +7,7 @@
     <v-btn
       color="secondary"
       variant="flat"
-      @click="router.push('/question/1')"
+      @click="start"
     >
       开始答题
     </v-btn>
@@ -16,6 +16,16 @@
 
 <script setup lang="ts">
 import { useRouter } from 'vue-router/auto'
+import { useQuestionStore } from '@/stores/question'
+import { getTest } from '@/apis/question'
+import { useLoading } from '@/composables/loading'
 
 const router = useRouter()
+const questionStore = useQuestionStore()
+const { load } = useLoading()
+
+const start = async () => {
+  questionStore.test = await load(getTest())
+  router.push('/question/1')
+}
 </script>

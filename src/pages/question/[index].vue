@@ -25,7 +25,7 @@
     </v-radio-group>
     <div
       v-else-if="currentQuestion.type === 'multi-selection'"
-      class="ml-n1 my-1"
+      class="ml-n1 my-1 checkbox-group"
     >
       <v-checkbox
         v-for="item in currentQuestion.options"
@@ -171,7 +171,7 @@ onBeforeMount(() => {
 </route>
 
 <style>
-.v-checkbox .v-selection-control {
+.checkbox-group .v-checkbox .v-selection-control {
   min-height: unset !important;
 }
 </style>

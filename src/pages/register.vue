@@ -1,16 +1,14 @@
 <template>
-  <Layout>
-    <RouterView />
-  </Layout>
+  <RouterView />
 </template>
 
 <script setup lang="ts">
-import Layout from '@/components/layout/Layout.vue'
-import { onBeforeRouteUpdate } from 'vue-router'
+import { onBeforeRouteUpdate } from 'vue-router/auto'
 
 onBeforeRouteUpdate((to, from, next) => {
-  if (from.query.type && !to.query.type) {
-    to.query.type = from.query.type
+  if (!to.query.type) {
+    if (from.query.type) to.query.type = from.query.type
+    else to.query.type = 'register'
     next(to)
   }
   next()

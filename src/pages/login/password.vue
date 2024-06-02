@@ -4,7 +4,7 @@
     lazy-validation
     @submit.prevent="onSubmit"
   >
-    <v-card-title> 输入您的密码 </v-card-title>
+    <v-card-title v-t="'message.title.login_password'"></v-card-title>
     <EmailDisplayBtn @click="router.push({ name: '/login/email' })">
       {{ email }}
     </EmailDisplayBtn>
@@ -13,7 +13,7 @@
         v-model="password"
         variant="outlined"
         clearable
-        label="输入您的密码"
+        :label="$t('message.label.password')"
         :type="passwordInputType"
         name="password"
       >
@@ -21,25 +21,23 @@
       <v-checkbox
         v-model="showPassword"
         class="mt-n7"
-        label="显示密码"
+        :label="$t('message.label.show_password')"
       >
       </v-checkbox>
     </v-card-text>
     <v-card-text class="d-flex justify-space-between">
       <v-btn
+        v-t="'message.button.forget_password'"
         variant="text"
         color="secondary"
         @click="router.push({ name: '/register/', query: { type: 'forget_password' } })"
-      >
-        忘记密码？
-      </v-btn>
+      ></v-btn>
       <v-btn
+        v-t="'message.button.login'"
         color="secondary"
         variant="flat"
         type="submit"
-      >
-        登录
-      </v-btn>
+      ></v-btn>
     </v-card-text>
   </v-form>
 </template>

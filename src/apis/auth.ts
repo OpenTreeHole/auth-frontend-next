@@ -40,7 +40,7 @@ export const verifyWithEmail = async (email: string, scope: string) => {
     params: {
       email,
       scope,
-      check: true
+      check: scope !== 'reset'
     }
   })
   return z

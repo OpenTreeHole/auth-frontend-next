@@ -48,7 +48,7 @@ export const verifyWithEmail = async (email: string, scope: string) => {
     .parse(response.data)
 }
 
-export const register = async (password: string, email: string, verification: string) => {
+export const register = async (email: string, password: string, verification: string) => {
   const response = await authNoAuthorizationRequest.post('/register', {
     password: password,
     email: email,
@@ -68,7 +68,7 @@ export const register = async (password: string, email: string, verification: st
   return data
 }
 
-export const changePassword = async (password: string, email: string, verification: string) => {
+export const changePassword = async (email: string, password: string, verification: string) => {
   const response = await authNoAuthorizationRequest.put('/register', {
     password: password,
     email: email,
